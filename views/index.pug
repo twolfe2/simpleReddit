@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Simple Reddit
+  link(rel="stylesheet", href="/bower_components/bootstrap/dist/css/bootstrap.min.css")
+  link(rel="stylesheet", href="/paper.bootstrap.css")
+  link(rel="stylesheet", href="/bower_components/font-awesome/css/font-awesome.min.css")
+  link(rel="stylesheet", href="/style.css")
+  script(src="/bower_components/moment/moment.js")
+  script(src="/bower_components/jquery/dist/jquery.min.js")
+  
+  script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js")
+  script(src="main.js")
+body
+
+
+    // Modal
+    #editModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Edit Message
+          .modal-body
+            input.newText
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary.saveEdit(type='button') Save changes
+
+    .container
+
+        h1.text-center Simple Reddit
+
+
+        //- .form-group.text-center
+        //-   label.control-label(for="focusedInput") New Post
+        //-   input.form-control.newPostForm#focusedInput
+
+        form.newPostForm.text-center.panel.panel-default
+          .panel-heading New Post
+          .panel-body
+            input.text.btn(placeholder="Post text", required)
+            button.btn.btn-primary Add Post
+        br
+
+        .posts.row
+          each post in posts
+            .row.post.panel.panel-default(data-id=post.id) 
+              .col-xs-1.col-md-2
+                  div
+                    button.upvote.btn.btn-xs
+                      i.fa.fa-chevron-up(aria-hidden= "true")
+                  div
+                    span.score #{post.score}
+                  div
+                    button.downvote.btn.btn-xs
+                      i.fa.fa-chevron-down(aria-hidden= "true")
+              
+              .col-md-8.textArea 
+                div
+                 span.text #{post.text} 
+              .col-xs-2
+                button.delete.btn.btn-xs.btn-danger 
+                  i.fa.fa-trash(aria-hidden="true")
+                button.edit.btn.btn-primary.btn-xs(type='button', data-toggle='modal', data-target='#editModal') 
+                  i.fa.fa-pencil(aria-hidden="true")
+                div.createdAt #{post.createdAt} 
+                //- template post
+    .row.post.panel.panel-default.template 
+          .col-xs-1.col-md-2
+              div
+                button.upvote.btn.btn-xs
+                  i.fa.fa-chevron-up(aria-hidden= "true")
+              div
+                span.score 
+              div
+                button.downvote.btn.btn-xs
+                  i.fa.fa-chevron-down(aria-hidden= "true")
+          
+          .col-md-8.textArea 
+            div
+             span.text 
+          .col-xs-2
+            button.delete.btn.btn-xs.btn-danger 
+              i.fa.fa-trash(aria-hidden="true")
+            button.edit.btn.btn-primary.btn-xs(type='button', data-toggle='modal', data-target='#editModal') 
+              i.fa.fa-pencil(aria-hidden="true")
+            div.createdAt
+
+      
+
