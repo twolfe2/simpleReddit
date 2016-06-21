@@ -7,7 +7,7 @@ const db = require('../config/db');
 const uuid = require('uuid');
 const moment = require('moment');
 
-db.run(`CREATE TABLE IF NOT EXISTS posts(
+db.query(`CREATE TABLE IF NOT EXISTS posts(
   id TEXT,
   createdAt TEXT,
   text TEXT, 
@@ -18,7 +18,7 @@ exports.getAll = () => {
 
   return new Promise((resolve,reject) => {
 
-    db.all('SELECT * FROM posts', (err,posts) => {
+    db.query('SELECT * FROM posts', (err,posts) => {
       if(err) {
         reject(err);
       }else {
@@ -32,21 +32,23 @@ exports.getAll = () => {
 };
 
 exports.create = postObj => {
+
+  postObj.id = uuid();
+  postObj.createdAt = moment().toISOString();
+  postObj.score = 0;
+
+
   return new Promise(function(resolve, reject) {
-    db.run('insert into posts values (?,?,?,?)',
-      uuid(),
-      moment().toISOString(),
-      postObj.text,
-      0,
+    db.query('insert into posts SET ?',postObj,
       function(err) {
         if(err) {
           reject(err);
         } else {
-          db.get('select * from posts order by createdAt desc limit 1', (err,post) => {
+          db.query('select * from posts order by createdAt desc limit 1', (err,posts) => {
 
             if(err) return reject(err);
-            
-            resolve(post);
+            console.log('post',posts)
+            resolve(posts[0]);
           })
         }
       }
@@ -58,7 +60,7 @@ exports.create = postObj => {
 
 exports.upvote= postId => {
   return new Promise((resolve,reject) => {
-    db.run(`UPDATE posts SET score=score+1 WHERE id = ?`,postId, (err) => {
+    db.query(`UPDATE posts SET score=score+1 WHERE id = ?`,postId, (err) => {
       if(err) reject(err);
       else resolve();
     });
@@ -69,7 +71,7 @@ exports.upvote= postId => {
 
 exports.downvote =  postId => {
   return new Promise((resolve,reject) => {
-    db.run(`UPDATE posts SET score=score-1 WHERE id = ?`,postId, (err) => {
+    db.query(`UPDATE posts SET score=score-1 WHERE id = ?`,postId, (err) => {
       if(err) reject(err);
       else resolve();
     });
@@ -80,16 +82,18 @@ exports.downvote =  postId => {
 
 exports.deletePost = postId => {
   return new Promise((resolve,reject) => {
-    db.run('DELETE FROM posts WHERE id = ?', postId, (err) => {
+    db.query('DELETE FROM posts WHERE id = ?', postId, (err) => {
       if(err) reject(err);
       else resolve();
     });
   });
 };
 
+
+///fix update!!!!
 exports.update = (postId,newText) => {
   return new Promise((resolve,reject) => {
-    db.run('UPDATE posts SET text = ? WHERE id = ?',newText,postId, (err) => {
+    db.query('UPDATE posts SET text = ? WHERE id = ?',[newText,postId], (err) => {
       if(err) reject(err);
       else resolve();
     })
