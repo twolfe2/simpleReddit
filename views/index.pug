@@ -12,6 +12,7 @@ head
   
   script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js")
   script(src="main.js")
+  meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 body
 
 
@@ -48,7 +49,7 @@ body
         .posts.row
           each post in posts
             .row.post.panel.panel-default(data-id=post.id) 
-              .col-xs-1.col-md-2
+              .col-xs-2.col-md-2
                   div
                     button.upvote.btn.btn-xs
                       i.fa.fa-chevron-up(aria-hidden= "true")
@@ -58,7 +59,7 @@ body
                     button.downvote.btn.btn-xs
                       i.fa.fa-chevron-down(aria-hidden= "true")
               
-              .col-md-8.textArea 
+              .col-md-8.textArea.col-xs-8
                 div
                  span.text #{post.text} 
               .col-xs-2
@@ -69,7 +70,7 @@ body
                 div.createdAt #{post.createdAt} 
                 //- template post
     .row.post.panel.panel-default.template 
-          .col-xs-1.col-md-2
+          .col-xs-2.col-md-2
               div
                 button.upvote.btn.btn-xs
                   i.fa.fa-chevron-up(aria-hidden= "true")
@@ -79,7 +80,7 @@ body
                 button.downvote.btn.btn-xs
                   i.fa.fa-chevron-down(aria-hidden= "true")
           
-          .col-md-8.textArea 
+          .col-md-8.textArea.col-xs-8
             div
              span.text 
           .col-xs-2
