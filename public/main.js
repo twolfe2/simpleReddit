@@ -61,12 +61,14 @@ function upvote() {
   postId = $(this).closest('.post').data('id');
   let $score = $(this).closest('.post').find('.score');
 
-  //add one to score
-  $score.text(parseInt($score.text()) + 1);
+  
 
   $.ajax(`/posts/upvote/${postId}`, {
     type: "PUT",
-    success: () => null,
+    success: () => {
+      //add one to score
+      $score.text(parseInt($score.text()) + 1);
+    },
     error: (err) => console.log(err)
 
   });
@@ -82,12 +84,15 @@ function downvote() {
   postId = $(this).closest('.post').data('id');
   let $score = $(this).closest('.post').find('.score');
 
-  //subtract from score
-  $score.text(parseInt($score.text()) - 1);
+  
 
   $.ajax(`/posts/downvote/${postId}`, {
     type: "PUT",
-    success: () => null,
+    success: () => {
+
+      //subtract from score
+      $score.text(parseInt($score.text()) - 1);
+    },
     error: (err) => console.log(err)
 
   });
