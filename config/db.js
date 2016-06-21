@@ -7,13 +7,13 @@ const mysql = require('mysql');
 
 
 
-// console.log(process.env);
 
 
-let db = mysql.createConnection({
+
+let db = mysql.createConnection(process.env.JAWSDB_URL || {
   host: 'localhost',
   user: 'root',
-  password: process.env.MYSQL_PASSWORD || 'TaNk1101', //$ export MYSQL_PASSWORD = 'my_password'
+  password: process.env.MYSQL_PASSWORD, //$ export MYSQL_PASSWORD = 'my_password'
   database: 'test'
 });
 
