@@ -13,7 +13,7 @@ const mysql = require('mysql');
 let db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'TaNk1101', //$ export MYSQL_PASSWORD = 'my_password'
+  password: process.env.MYSQL_PASSWORD || 'TaNk1101', //$ export MYSQL_PASSWORD = 'my_password'
   database: 'test'
 });
 
