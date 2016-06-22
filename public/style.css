@@ -15,3 +15,9 @@
 .template {
   display: none
 }
+
+.post:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+
+}

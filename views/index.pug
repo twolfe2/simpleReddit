@@ -44,7 +44,7 @@ body
           .panel-body
             input.text.btn(placeholder="Post text", required)
             button.btn.btn-primary Add Post
-        br
+        
 
         .posts.row
           each post in posts
@@ -68,6 +68,8 @@ body
                 button.edit.btn.btn-primary.btn-xs(type='button', data-toggle='modal', data-target='#editModal') 
                   i.fa.fa-pencil(aria-hidden="true")
                 div.createdAt #{post.createdAt} 
+               
+                
                 //- template post
     .row.post.panel.panel-default.template 
           .col-xs-2.col-md-2
