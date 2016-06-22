@@ -17,7 +17,7 @@ head
 body
 
 
-    // Modal
+    //- // Modal
     #editModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
       .modal-dialog(role='document')
         .modal-content
@@ -30,6 +30,20 @@ body
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Close
             button.btn.btn-primary.saveEdit(type='button') Save changes
+
+    //- // Modal
+    #addComment.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4#myModalLabel.modal-title Add Comment
+          .modal-body
+            input.commentText
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary.saveComment(type='button') Save Comment
 
     .container
 
@@ -55,7 +69,7 @@ body
                     button.upvote.btn.btn-xs
                       i.fa.fa-chevron-up(aria-hidden= "true")
                   div
-                    span.score #{post.score}
+                    span.score.postScore #{post.score}
                   div
                     button.downvote.btn.btn-xs
                       i.fa.fa-chevron-down(aria-hidden= "true")
@@ -72,13 +86,32 @@ body
                 div 
                   button.btn.btn-sm.toggleComments Show/Hide Comments
 
-              .row.comments
-                .row
-                  .col-xs-6.col-xs-offset-1
-                    each comment in comments
-                      if comment.postId === post.id
-                        div=comment.commentText
-                  
+            
+              .row
+                .col-xs-8.col-xs-offset-1.comments
+                  each comment in comments
+                    if comment.postId === post.id
+                      .row.post.panel.panel-default.comment(data-commentId=comment.id) 
+                        .col-xs-2.col-md-2
+                            div
+                              button.upvoteComment.btn.btn-xs
+                                i.fa.fa-chevron-up(aria-hidden= "true")
+                            div
+                              span.score.commentScore #{comment.score}
+                            div
+                              button.downvoteComment.btn.btn-xs
+                                i.fa.fa-chevron-down(aria-hidden= "true")
+                        
+                        .col-md-7.textArea.col-xs-7
+                          div
+                           span.text #{comment.commentText} 
+                        .col-xs-3
+                          span.createdAt=comment.createdAt
+                  .row
+                    button.addComment.btn-md.btn-block.btn-primary Add Comment
+
+                                    
+                              
                 
                 //- template post
     .row.post.panel.panel-default.template 
@@ -87,9 +120,9 @@ body
                 button.upvote.btn.btn-xs
                   i.fa.fa-chevron-up(aria-hidden= "true")
               div
-                span.score 
+                span.postScore.score
               div
-                button.downvote.btn.btn-xs
+                button.downvote.btn.btn-xs.postDown
                   i.fa.fa-chevron-down(aria-hidden= "true")
           
           .col-md-8.textArea.col-xs-8
@@ -102,5 +135,22 @@ body
               i.fa.fa-pencil(aria-hidden="true")
             div.createdAt
 
+    .row.post.panel.panel-default.comment.commentTemplate 
+      .col-xs-2.col-md-2
+          div
+            button.upvoteComment.btn.btn-xs
+              i.fa.fa-chevron-up(aria-hidden= "true")
+          div
+            span.score.commentScore
+          div
+            button.downvoteComment.btn.btn-xs
+              i.fa.fa-chevron-down(aria-hidden= "true")
       
+      .col-md-7.textArea.col-xs-7
+        div
+         span.text 
+      .col-xs-3
+        span.createdAt
+
+
 

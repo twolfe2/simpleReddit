@@ -40,9 +40,17 @@ app.get('/', (req,res) => {
       return Comment.getAllComments(posts); 
       // res.render('index', {posts: posts});
       }).then((output) => {
-        console.log('comments:', output[0]);
-        console.log('posts:', output[1]);
-        res.render('index',{posts:output[1], comments: output[0]});
+        // console.log('comments:', output[0]);
+        // console.log('posts:', output[1]);
+        let comments = output[0];
+        // console.log(com);
+        let formattedComments = comments.map(comment =>  {
+           console.log('in loop',comment);
+          comment.createdAt = moment(comment.createdAt).format('lll');
+          // console.log(comment);
+        });
+        // console.log(comments);
+        res.render('index',{posts:output[1], comments: comments});
       })
     .catch(err => {
       res.send(err);
