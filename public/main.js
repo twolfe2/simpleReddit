@@ -6,13 +6,26 @@ $(document).ready(init);
 
 
 function init() {
+
+  $.fn.extend({
+    animateCss: function(animationName) {
+      var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+      $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+        $(this).removeClass('animated ' + animationName);
+      });
+    }
+  });
+
   $('.newPostForm').submit(createPost);
 
   $('.posts').on('click', '.upvote', upvote);
   $('.posts').on('click', '.downvote', downvote);
   $('.posts').on('click', '.delete', deletePost);
   $('.posts').on('click', '.edit', editPost);
-  $('.saveEdit').on('click',saveEdit);
+  $('.saveEdit').on('click', saveEdit);
+  $('.posts').on('click', '.toggleComments', toggleComments);
+  // $('.posts').on('click', '.hideComments', hideComments);
+
 
 }
 
@@ -49,7 +62,7 @@ function postElement(post) {
   $newPost.find('.createdAt').text(`${time}`);
   $newPost.find('.score').text('0');
   $newPost.find('.text').text(post.text);
-  
+
 
   return $newPost;
 
@@ -61,7 +74,7 @@ function upvote() {
   postId = $(this).closest('.post').data('id');
   let $score = $(this).closest('.post').find('.score');
 
-  
+
 
   $.ajax(`/posts/upvote/${postId}`, {
     type: "PUT",
@@ -84,7 +97,7 @@ function downvote() {
   postId = $(this).closest('.post').data('id');
   let $score = $(this).closest('.post').find('.score');
 
-  
+
 
   $.ajax(`/posts/downvote/${postId}`, {
     type: "PUT",
@@ -147,3 +160,25 @@ function saveEdit() {
   });
 
 }
+
+function toggleComments() {
+  // $(this).removeClass('showComments').addClass('hideComments');
+  let $comments = $(this).closest('.post').find('.comments');
+
+  // $comments.css('display', 'block');
+
+  $comments.slideToggle();
+};
+
+// function hideComments() {
+
+//   // $(this).removeClass('hideComments').addClass('showComments');
+//   let $comments = $(this).closest('.post').next();
+
+
+
+//   $comments.slideUp();
+//   // $comments.css('display', 'none');
+
+// }
+

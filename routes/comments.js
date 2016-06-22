@@ -13,7 +13,7 @@ router.get('/:postId', (req,res) => {
 
   Comment.getComments(req.params.postId)
     .then(comments => {
-      console.log(comments);
+      // console.log(comments);
       // res.render('comment', {comments: comments});
       res.send(comments);
     }).catch(err => {

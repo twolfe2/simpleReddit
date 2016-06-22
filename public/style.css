@@ -9,6 +9,7 @@
 
 .panel {
  padding: 10px;
+ /*margin-bottom: 10px;*/
 }
 
 
@@ -16,8 +17,13 @@
   display: none
 }
 
-.post:hover {
+/*.post:hover {
   background-color: lightgrey;
   cursor: pointer;
 
+}*/
+
+.comments {
+  display: none;
+  border: 1px solid transparent;
 }

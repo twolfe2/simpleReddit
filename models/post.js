@@ -47,7 +47,7 @@ exports.create = postObj => {
           db.query('select * from posts order by createdAt desc limit 1', (err,posts) => {
 
             if(err) return reject(err);
-            console.log('post',posts)
+            // console.log('post',posts)
             resolve(posts[0]);
           })
         }
@@ -90,7 +90,7 @@ exports.deletePost = postId => {
 };
 
 
-///fix update!!!!
+
 exports.update = (postId,newText) => {
   return new Promise((resolve,reject) => {
     db.query('UPDATE posts SET text = ? WHERE id = ?',[newText,postId], (err) => {

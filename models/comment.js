@@ -21,7 +21,8 @@ exports.getComments = (postId) => {
 
   return new Promise((resolve,reject) => {
 
-    db.query('SELECT comments.id,comments.postId, comments.commentText,posts.text FROM comments JOIN posts ON (posts.id = comments.postId) WHERE comments.postId = ?',postId,(err, results) => {
+    db.query('SELECT comments.id,comments.postId, comments.commentText,posts.text FROM comments JOIN posts ON (posts.id = comments.postId) WHERE comments.postId = ?'
+      ,postId,(err, results) => {
       if(err) return reject(err);
 
       resolve(results);
@@ -53,3 +54,20 @@ exports.addComment = (postId, commentObj) => {
       });
   });
 }
+
+
+
+
+exports.getAllComments = (posts) => {
+
+  return new Promise((resolve,reject) => {
+
+    db.query('SELECT * FROM comments'
+      ,(err, comments) => {
+      if(err) return reject(err);
+      // console.log(posts);
+      let output = [comments,posts];
+      resolve(output);
+    });
+  });
+};
