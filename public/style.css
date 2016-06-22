@@ -9,9 +9,21 @@
 
 .panel {
  padding: 10px;
+ /*margin-bottom: 10px;*/
 }
 
 
-.template {
+.template,.commentTemplate {
   display: none
+}
+
+/*.post:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+
+}*/
+
+.comments {
+  display: none;
+  /*border: 1px solid transparent;*/
 }
